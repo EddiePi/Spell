@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class LCSObject {
 	private List<Integer> lineIds = new ArrayList<Integer>(); //Holds line ids
 	private String LCSseq[]; //Token Sequence
 
-	private Set<String> replaceSet = ForceReplaceSet.getInstance().replaceSet;
+	private Map<String, String> replaceMap = ForceReplaceSet.getInstance().replaceMap;
 	
 	public LCSObject(String[] seq, int lineId) {
 		LCSseq = seq;
@@ -29,7 +30,7 @@ public class LCSObject {
 					lastMatch = j;
 					count++;
 					break;
-				} else if (replaceSet.contains(LCSseq[i])) {
+				} else if (replaceMap.containsKey(LCSseq[i])) {
 					if (seq[j].matches(LCSseq[i])) {
 						lastMatch = j;
 						count++;
@@ -96,19 +97,31 @@ public class LCSObject {
 	}
 	
 	//To String method for testing
+//	public String toString() {
+//		String temp = "";
+//
+//		for(String s : LCSseq) {
+//			temp = temp + s + " ";
+//		}
+//
+//		temp = temp + "\n\t\t{";
+//
+//		for(int i : lineIds) {
+//			temp = temp + (i + 1) + ", ";
+//		}
+//
+//		return temp.substring(0, temp.length() - 2) + "}";
+//	}
+
 	public String toString() {
-		String temp = "";
-		
-		for(String s : LCSseq) {
-			temp = temp + s + " ";
+		String res = "";
+
+		for (String s: LCSseq) {
+			res = res + s+ " ";
 		}
-		
-		temp = temp + "\n\t\t{";
-		
-		for(int i : lineIds) {
-			temp = temp + (i + 1) + ", ";
-		}
-		
-		return temp.substring(0, temp.length() - 2) + "}";
+		res = res + "\n\t\t";
+		res = res + "# of obj: " + lineIds.size();
+
+		return res;
 	}
 }

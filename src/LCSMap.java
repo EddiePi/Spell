@@ -1,22 +1,25 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class LCSMap {
 	
 	private List<LCSObject> LCSObjects = new ArrayList<LCSObject>();
 	private int lineId = 0;
-	private Set<String> replaceSet;
+	private Map<String, String> replaceMap;
 	
 	public LCSMap() {
-		replaceSet = ForceReplaceSet.getInstance().replaceSet;
+		replaceMap = ForceReplaceSet.getInstance().replaceMap;
 	}
 	
 	//Insert a log entry into the LCSMap
 	public void insert(String entry) {
 		String replacedEntry = entry;
-		for (String regex: replaceSet) {
-			replacedEntry = replacedEntry.replaceAll(regex, regex);
+		for (Map.Entry<String, String> strToRplc: replaceMap.entrySet()) {
+			String origin = strToRplc.getKey();
+			String target = strToRplc.getValue();
+			replacedEntry = replacedEntry.replaceAll(origin, target);
 		}
 
 		String seq[] = replacedEntry.trim().split("[\\s]+");
@@ -71,7 +74,11 @@ public class LCSMap {
 		int entryCount = 0;
 		
 		for(int i = 0; i < size(); i++) {
-			temp = temp + "\tObject " + i + ":\n\t\t" + objectAt(i).toString() + "\n";
+			LCSObject entry  = objectAt(i);
+//			if (entry.count() < 10) {
+//				continue;
+//			}
+			temp = temp + "\tObject " + i + ":\n\t\t" + entry.toString() + "\n";
 			entryCount += objectAt(i).count();
 		}
 		

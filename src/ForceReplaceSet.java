@@ -17,18 +17,26 @@ public class ForceReplaceSet {
 
     private static ForceReplaceSet instance = null;
 
-    public Set<String> replaceSet;
+    public Map<String, String> replaceMap;
 
     private ForceReplaceSet() {
-        replaceSet = new HashSet<>();
+        replaceMap = new HashMap<>();
         addRule("appattempt_\\d+_\\d+_\\d+");
         addRule("application_\\d+_\\d+");
         addRule("container_\\d+_\\d+_\\d+_\\d+");
+        addRule("BlockManagerId(.*)");
+        addRule("attempt_\\d+_\\d+_[mr]_\\d+_\\d+");
+        addRule("\\(", "\\( ");
+        addRule("\\)", " \\)");
     }
 
 
     public void addRule(String regex) {
-        replaceSet.add(regex);
+        replaceMap.put(regex, regex);
+    }
+
+    public void addRule(String origin, String target) {
+        replaceMap.put(origin, target);
     }
 
 
