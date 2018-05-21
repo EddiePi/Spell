@@ -1,17 +1,18 @@
+import spell.LCSMap;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Map;
 
 public class Test {
 
 	public static void main(String[] args) {
 		LCSMap map = new LCSMap();
 		
-		//File f = new File("/Users/Eddie/Research/tracing/data/log/only-content.log");
-		File f = new File("/home/eddie/log-preprocessor/data/spark-only-content.log");
+		File f = new File("/Users/Eddie/gitRepo/log-preprocessor/data/spark-only-content.log");
+		//File f = new File("/home/eddie/log-preprocessor/data/spark-only-content.log");
 		FileReader fr;
 		BufferedReader br;
 		try {
